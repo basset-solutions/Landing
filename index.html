@@ -63,9 +63,7 @@
           <div class="section__head">
             <div class="pill">لماذا نحن</div>
             <h2 class="section__title">لماذا بسط؟</h2>
-            <p class="section__desc">
-              نؤمن أن التقنية يجب أن تخدم العمل، لا أن تُعقّده.
-            </p>
+            <p class="section__desc">نؤمن أن التقنية يجب أن تخدم العمل، لا أن تُعقّده.</p>
           </div>
 
           <div class="grid grid--4">
@@ -121,9 +119,7 @@
           <div class="section__head">
             <div class="pill">خدماتنا</div>
             <h2 class="section__title">حلول تقنية متكاملة</h2>
-            <p class="section__desc">
-              مجموعة خدمات مصممة لتبسيط أعمالك ورفع الأداء التشغيلي.
-            </p>
+            <p class="section__desc">مجموعة خدمات مصممة لتبسيط أعمالك ورفع الأداء التشغيلي.</p>
           </div>
 
           <div class="grid grid--3">
@@ -167,9 +163,7 @@
           <div class="benefits">
             <div class="benefits__head">
               <h3 class="benefits__title">الفائدة التي تلاحظها بسرعة</h3>
-              <p class="benefits__desc">
-                تحسينات عملية ومباشرة على جودة العمل والإنتاجية.
-              </p>
+              <p class="benefits__desc">تحسينات عملية ومباشرة على جودة العمل والإنتاجية.</p>
             </div>
 
             <ul class="checklist">
@@ -238,24 +232,51 @@
           </div>
 
           <div class="contact">
+            <!-- Success message -->
+            <div id="success-message" class="success hidden">
+              <div class="success__icon">✅</div>
+              <h3>تم إرسال رسالتك بنجاح</h3>
+              <p>شكراً لتواصلك معنا، بنرجع لك خلال 24 ساعة.</p>
+            </div>
+
+            <!-- Form -->
             <form
-  class="form"
-  action="https://formspree.io/f/xeeadzzw"
-  method="POST"
->
+              id="contact-form"
+              class="form"
+              action="https://formspree.io/f/xeeadzzw"
+              method="POST"
+            >
               <label class="field">
                 <span class="field__label">الاسم</span>
-                <input class="field__input" type="text" placeholder="اسمك الكامل" />
+                <input
+                  class="field__input"
+                  type="text"
+                  name="name"
+                  placeholder="اسمك الكامل"
+                  required
+                />
               </label>
 
               <label class="field">
                 <span class="field__label">البريد الإلكتروني</span>
-                <input class="field__input" type="email" placeholder="email@example.com" />
+                <input
+                  class="field__input"
+                  type="email"
+                  name="email"
+                  placeholder="email@example.com"
+                  required
+                />
               </label>
 
               <label class="field">
                 <span class="field__label">رسالتك</span>
-                <textarea class="field__input field__textarea" rows="5" placeholder="كيف نقدر نساعدك؟"></textarea>
+                <textarea
+                  class="field__input field__textarea"
+                  name="message"
+                  rows="5"
+                  placeholder="كيف نقدر نساعدك؟"
+                  required
+                ></textarea>
               </label>
 
               <button class="btn btn--primary btn--wide" type="submit">
@@ -291,7 +312,7 @@
     </footer>
 
     <script>
-      // Scroll hint smooth
+      // Smooth scroll for anchors
       document.querySelectorAll('a[href^="#"]').forEach((a) => {
         a.addEventListener("click", (e) => {
           const id = a.getAttribute("href");
@@ -302,6 +323,34 @@
           el.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
+    </script>
+
+    <script>
+      // Submit form via fetch + show success message
+      const form = document.getElementById("contact-form");
+      const successMessage = document.getElementById("success-message");
+
+      if (form) {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = new FormData(form);
+
+          const response = await fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { Accept: "application/json" },
+          });
+
+          if (response.ok) {
+            form.reset();
+            form.classList.add("hidden");
+            successMessage.classList.remove("hidden");
+          } else {
+            alert("صار خطأ أثناء الإرسال، جرّبي مرة ثانية 🙏");
+          }
+        });
+      }
     </script>
   </body>
 </html>
