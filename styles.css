@@ -194,4 +194,359 @@ a {
 .hero__cta {
   margin-top: 22px;
   display: flex;
-  gap: 12
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero__hint {
+  margin-top: 24px;
+  opacity: 0.45;
+  font-size: 22px;
+}
+
+/* ---------- Sections ---------- */
+.section {
+  padding: 70px 0;
+}
+
+.section--alt {
+  background: rgba(255, 255, 255, 0.35);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section__head {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-weight: 900;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.section__title {
+  font-size: clamp(28px, 4vw, 46px);
+  margin: 0;
+}
+
+.section__desc {
+  color: var(--muted);
+  font-weight: 700;
+  max-width: 780px;
+  margin: 10px auto 0;
+  line-height: 1.7;
+}
+
+/* ---------- Grid + Cards ---------- */
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.card--big {
+  padding: 22px;
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(23, 58, 45, 0.08);
+  border: 1px solid rgba(20, 60, 45, 0.1);
+  margin: 0 auto 12px;
+}
+
+.card h3 {
+  margin: 8px 0 8px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+/* ---------- Stats (fix “مرمية يمين”) ---------- */
+.stats {
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.stat {
+  min-width: 150px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 16px 14px;
+}
+
+.stat__num {
+  font-size: 28px;
+  font-weight: 1000;
+}
+
+.stat__label {
+  color: var(--muted);
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+/* ---------- Benefits ---------- */
+.benefits {
+  margin-top: 26px;
+  padding: 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.benefits__head {
+  text-align: center;
+}
+
+.benefits__title {
+  margin: 0;
+  font-weight: 1000;
+}
+
+.benefits__desc {
+  margin: 8px auto 0;
+  color: var(--muted);
+  font-weight: 700;
+  max-width: 720px;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 18px auto 0;
+  display: grid;
+  gap: 10px;
+  max-width: 720px;
+}
+
+.checklist li {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 800;
+}
+
+/* ---------- Timeline (fix “كل شيء يمين”) ---------- */
+.timeline {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.step {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(20, 60, 45, 0.12);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
+
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.step__num {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 1000;
+  background: rgba(23, 58, 45, 0.08);
+  border: 1px solid rgba(20, 60, 45, 0.12);
+}
+
+.step__body h3 {
+  margin: 4px 0 6px;
+  font-weight: 1000;
+}
+
+.step__body p {
+  margin: 0;
+  color: rgba(23, 58, 45, 0.7);
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+/* ---------- Contact ---------- */
+.contact {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.form {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 22px;
+  border-radius: 22px;
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field__label {
+  display: block;
+  font-weight: 1000;
+  margin-bottom: 8px;
+}
+
+.field__input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  outline: none;
+  font-weight: 700;
+}
+
+.field__input:focus {
+  border-color: rgba(23, 58, 45, 0.35);
+}
+
+.field__textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.contact__email {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: rgba(23, 58, 45, 0.65);
+  font-weight: 900;
+
+  /* للايميل بالذات */
+  direction: ltr;
+}
+
+/* Success message */
+.success {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 22px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow);
+}
+
+.success__icon {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 26px 0;
+}
+
+.footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer__brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer__text {
+  font-weight: 800;
+}
+
+.muted {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.footer__links {
+  display: flex;
+  gap: 16px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.footer__links a:hover {
+  color: var(--text);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .nav {
+    display: none;
+  }
+
+  .grid--4,
+  .grid--3 {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 70px 0 50px;
+  }
+
+  .step {
+    grid-template-columns: 1fr;
+  }
+
+  .step__num {
+    justify-self: start;
+  }
+}
