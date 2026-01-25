@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="ar" dir="rtl" class="no-js">
   <head>
@@ -13,9 +14,6 @@
   </head>
 
   <body>
-    <!-- Background glow (بدون نجوم) -->
-    <div class="bg-glow" aria-hidden="true"></div>
-
     <!-- Header -->
     <header class="header">
       <div class="container header__inner">
@@ -37,10 +35,10 @@
       <!-- Hero -->
       <section class="hero" id="top">
         <div class="container hero__inner">
-          <div class="hero__logo" aria-hidden="true">⬡</div>
-
-          <h1 class="hero__title">نبسّط العمل.</h1>
-          <p class="hero__subtitle">ونحوّل التعقيد إلى أنظمة ذكية.</p>
+          <h1 class="hero__title">نبسّط التعقيد ونخلي الشغل أوضح</h1>
+          <p class="hero__subtitle">
+            فريق سعودي يقدّم حلول تقنية ذكية تقلّل الجهد وتزيد الكفاءة
+          </p>
 
           <p class="hero__desc">
             نساعد الشركات الصغيرة والمتوسطة في السعودية على تحسين عملياتها التشغيلية عبر
@@ -52,18 +50,50 @@
             <a class="btn btn--primary" href="#contact">تواصل معنا</a>
             <a class="btn btn--ghost" href="#services">استعرض الخدمات</a>
           </div>
+        </div>
 
-          <!-- Neon cubes -->
-          <div class="hero-cubes" aria-hidden="true">
-            <div class="cube-grid">
-              <span class="cube"></span><span class="cube"></span><span class="cube"></span><span class="cube"></span>
-              <span class="cube"></span><span class="cube"></span><span class="cube"></span><span class="cube"></span>
-              <span class="cube"></span><span class="cube"></span><span class="cube"></span><span class="cube"></span>
-              <span class="cube"></span><span class="cube"></span><span class="cube"></span><span class="cube"></span>
-            </div>
-          </div>
+        <!-- موجة خلفية متحركة -->
+        <div class="hero-wave" aria-hidden="true">
+          <svg viewBox="0 0 1200 260" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="waveGlow" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#6d5cff" stop-opacity="0.0" />
+                <stop offset="0.25" stop-color="#6d5cff" stop-opacity="0.75" />
+                <stop offset="0.55" stop-color="#3aa0ff" stop-opacity="0.85" />
+                <stop offset="0.85" stop-color="#6d5cff" stop-opacity="0.75" />
+                <stop offset="1" stop-color="#6d5cff" stop-opacity="0.0" />
+              </linearGradient>
 
-          <div class="hero__hint" aria-hidden="true">⌄</div>
+              <linearGradient id="waveLine" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.0" />
+                <stop offset="0.35" stop-color="#e8f2ff" stop-opacity="0.95" />
+                <stop offset="0.6" stop-color="#ffffff" stop-opacity="0.95" />
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0.0" />
+              </linearGradient>
+            </defs>
+
+            <!-- طبقة خلفية (Glow) -->
+            <g class="wave wave--back">
+              <path
+                d="M0,170 C120,120 240,220 360,170 C480,120 600,220 720,170 C840,120 960,220 1080,170 C1140,145 1170,140 1200,150"
+                fill="none"
+                stroke="url(#waveGlow)"
+                stroke-width="20"
+                stroke-linecap="round"
+              />
+            </g>
+
+            <!-- خط أمامي لامع -->
+            <g class="wave wave--front">
+              <path
+                d="M0,170 C120,120 240,220 360,170 C480,120 600,220 720,170 C840,120 960,220 1080,170 C1140,145 1170,140 1200,150"
+                fill="none"
+                stroke="url(#waveLine)"
+                stroke-width="6"
+                stroke-linecap="round"
+              />
+            </g>
+          </svg>
         </div>
       </section>
 
@@ -129,7 +159,9 @@
           <div class="section__head">
             <div class="pill">خدماتنا</div>
             <h2 class="section__title">حلول تقنية متكاملة</h2>
-            <p class="section__desc">مجموعة خدمات مصممة لتبسيط أعمالك ورفع الأداء التشغيلي.</p>
+            <p class="section__desc">
+              مجموعة خدمات مصممة لتبسيط أعمالك ورفع الأداء التشغيلي.
+            </p>
           </div>
 
           <div class="grid grid--3">
@@ -173,7 +205,9 @@
           <div class="benefits reveal">
             <div class="benefits__head">
               <h3 class="benefits__title">الفائدة التي تلاحظها بسرعة</h3>
-              <p class="benefits__desc">تحسينات عملية ومباشرة على جودة العمل والإنتاجية.</p>
+              <p class="benefits__desc">
+                تحسينات عملية ومباشرة على جودة العمل والإنتاجية.
+              </p>
             </div>
 
             <ul class="checklist">
@@ -247,16 +281,13 @@
               <div class="success__icon">✅</div>
               <h3>تم إرسال رسالتك بنجاح</h3>
               <p>شكراً لتواصلك معنا، بنرجع لك خلال 24 ساعة.</p>
-              <button class="btn btn--ghost" type="button" id="back-to-form">
-                إرسال رسالة أخرى
-              </button>
             </div>
 
             <!-- Form -->
             <form
               id="contact-form"
               class="form"
-              action="https://formspree.io/f/zzzzzzzz"
+              action="https://formspree.io/f/xeeadzzw"
               method="POST"
             >
               <label class="field">
