@@ -10,7 +10,7 @@
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
-<script src="script.js" defer></script>
+
   <body>
     <!-- Background soft glow -->
     <div class="bg-glow" aria-hidden="true"></div>
@@ -19,7 +19,6 @@
     <header class="header">
       <div class="container header__inner">
         <div class="brand">
-          <!-- بدل النص تقدرين تحطين لوقو: <img src="assets/images/logo.png" alt="بسّط" class="brand__logo"> -->
           <div class="brand__mark" aria-hidden="true">⬡</div>
           <div class="brand__name">بسّط</div>
         </div>
@@ -73,26 +72,26 @@
               <p>تأثير فوري وملموس على سير العمل.</p>
             </article>
 
-            <article class="card">
+            <article class="card reveal">
               <div class="icon">🧩</div>
               <h3>أنظمة قابلة للتوسع</h3>
               <p>تنمو مع نمو أعمالك بدون إعادة بناء.</p>
             </article>
 
-            <article class="card">
+            <article class="card reveal">
               <div class="icon">⚙️</div>
               <h3>حلول عملية</h3>
               <p>لا نظريات… نطبق حلول فعّالة.</p>
             </article>
 
-            <article class="card">
+            <article class="card reveal">
               <div class="icon">🇸🇦</div>
               <h3>فريق سعودي</h3>
               <p>نفهم السوق المحلي واحتياجاته.</p>
             </article>
           </div>
 
-          <div class="stats">
+          <div class="stats reveal">
             <div class="stat">
               <div class="stat__num">3x</div>
               <div class="stat__label">زيادة الكفاءة</div>
@@ -129,38 +128,38 @@
               <p>نحلل مراحل العمل الحالية ونحدد نقاط التعطّل والهدر.</p>
             </article>
 
-            <article class="card card--big">
+            <article class="card card--big reveal">
               <div class="icon">🧠</div>
               <h3>تصميم وإعادة هيكلة (To-Be)</h3>
               <p>نصمم عمليات واضحة قابلة للقياس والتوسع.</p>
             </article>
 
-            <article class="card card--big">
+            <article class="card card--big reveal">
               <div class="icon">🔁</div>
               <h3>تنفيذ الأتمتة</h3>
               <p>Workflows و Integrations لتقليل الأخطاء وتوفير الوقت.</p>
             </article>
 
-            <article class="card card--big">
+            <article class="card card--big reveal">
               <div class="icon">📊</div>
               <h3>تقارير دورية</h3>
               <p>تقارير أسبوعية/شهرية حسب الطلب مبنية على KPIs.</p>
             </article>
 
-            <article class="card card--big">
+            <article class="card card--big reveal">
               <div class="icon">🧑‍💼</div>
               <h3>رضا الموظفين</h3>
               <p>استبيانات + تحليل دوري لرفع الرضا وتحسين الأداء.</p>
             </article>
 
-            <article class="card card--big">
+            <article class="card card--big reveal">
               <div class="icon">🛠️</div>
               <h3>دعم وتشغيل أو تدريب</h3>
               <p>دعم مستمر أو تدريب فرق العميل حسب الحاجة.</p>
             </article>
           </div>
 
-          <div class="benefits">
+          <div class="benefits reveal">
             <div class="benefits__head">
               <h3 class="benefits__title">الفائدة التي تلاحظها بسرعة</h3>
               <p class="benefits__desc">تحسينات عملية ومباشرة على جودة العمل والإنتاجية.</p>
@@ -187,7 +186,7 @@
           </div>
 
           <div class="timeline">
-            <div class="step">
+            <div class="step reveal">
               <div class="step__num">1</div>
               <div class="step__body">
                 <h3>جلسة فهم ومواءمة</h3>
@@ -203,7 +202,7 @@
               </div>
             </div>
 
-            <div class="step">
+            <div class="step reveal">
               <div class="step__num">3</div>
               <div class="step__body">
                 <h3>تصميم To-Be</h3>
@@ -211,7 +210,7 @@
               </div>
             </div>
 
-            <div class="step">
+            <div class="step reveal">
               <div class="step__num">4</div>
               <div class="step__body">
                 <h3>أتمتة + تقارير</h3>
@@ -232,14 +231,12 @@
           </div>
 
           <div class="contact">
-            <!-- Success message -->
             <div id="success-message" class="success hidden">
               <div class="success__icon">✅</div>
               <h3>تم إرسال رسالتك بنجاح</h3>
               <p>شكراً لتواصلك معنا، بنرجع لك خلال 24 ساعة.</p>
             </div>
 
-            <!-- Form -->
             <form
               id="contact-form"
               class="form"
@@ -311,46 +308,7 @@
       </div>
     </footer>
 
-    <script>
-      // Smooth scroll for anchors
-      document.querySelectorAll('a[href^="#"]').forEach((a) => {
-        a.addEventListener("click", (e) => {
-          const id = a.getAttribute("href");
-          if (!id || id === "#") return;
-          const el = document.querySelector(id);
-          if (!el) return;
-          e.preventDefault();
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      });
-    </script>
-
-    <script>
-      // Submit form via fetch + show success message
-      const form = document.getElementById("contact-form");
-      const successMessage = document.getElementById("success-message");
-
-      if (form) {
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-
-          const data = new FormData(form);
-
-          const response = await fetch(form.action, {
-            method: form.method,
-            body: data,
-            headers: { Accept: "application/json" },
-          });
-
-          if (response.ok) {
-            form.reset();
-            form.classList.add("hidden");
-            successMessage.classList.remove("hidden");
-          } else {
-            alert("صار خطأ أثناء الإرسال، جرّبي مرة ثانية 🙏");
-          }
-        });
-      }
-    </script>
+    <!-- ✅ All JS here (no duplicates inside HTML) -->
+    <script src="script.js" defer></script>
   </body>
 </html>
