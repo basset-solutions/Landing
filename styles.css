@@ -561,4 +561,10 @@ a {
   opacity: 1;
   transform: translateY(0);
 }
+/* Fallback: لو JS ما اشتغل، لا تخفي العناصر */
+.no-js .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 
