@@ -9,10 +9,11 @@
       content="نساعد الشركات الصغيرة والمتوسطة في السعودية على تحسين عملياتها عبر التشخيص، إعادة تصميم العمليات، الأتمتة، والتقارير المبنية على البيانات."
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
   </head>
 
   <body>
-    <!-- Background soft glow -->
+    <!-- Background glow (بدون نجوم) -->
     <div class="bg-glow" aria-hidden="true"></div>
 
     <!-- Header -->
@@ -50,6 +51,16 @@
           <div class="hero__cta">
             <a class="btn btn--primary" href="#contact">تواصل معنا</a>
             <a class="btn btn--ghost" href="#services">استعرض الخدمات</a>
+          </div>
+
+          <!-- Neon cubes -->
+          <div class="hero-cubes" aria-hidden="true">
+            <div class="cube-grid">
+              <span class="cube"></span><span class="cube"></span><span class="cube"></span><span class="cube"></span>
+              <span class="cube"></span><span class="cube"></span><span class="cube"></span><span class="cube"></span>
+              <span class="cube"></span><span class="cube"></span><span class="cube"></span><span class="cube"></span>
+              <span class="cube"></span><span class="cube"></span><span class="cube"></span><span class="cube"></span>
+            </div>
           </div>
 
           <div class="hero__hint" aria-hidden="true">⌄</div>
@@ -231,16 +242,21 @@
           </div>
 
           <div class="contact">
+            <!-- Success message -->
             <div id="success-message" class="success hidden">
               <div class="success__icon">✅</div>
               <h3>تم إرسال رسالتك بنجاح</h3>
               <p>شكراً لتواصلك معنا، بنرجع لك خلال 24 ساعة.</p>
+              <button class="btn btn--ghost" type="button" id="back-to-form">
+                إرسال رسالة أخرى
+              </button>
             </div>
 
+            <!-- Form -->
             <form
               id="contact-form"
               class="form"
-              action="https://formspree.io/f/xeeadzzw"
+              action="https://formspree.io/f/zzzzzzzz"
               method="POST"
             >
               <label class="field">
@@ -307,8 +323,5 @@
         </div>
       </div>
     </footer>
-
-    <!-- ✅ All JS here (no duplicates inside HTML) -->
-    <script src="script.js" defer></script>
   </body>
 </html>
