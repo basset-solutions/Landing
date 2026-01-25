@@ -1,3 +1,6 @@
+// شيل no-js أول ما يشتغل الجافاسكربت
+document.documentElement.classList.remove("no-js");
+
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (e) => {
@@ -16,7 +19,6 @@ const successMessage = document.getElementById("success-message");
 if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const data = new FormData(form);
 
     try {
@@ -29,7 +31,7 @@ if (form) {
       if (response.ok) {
         form.reset();
         form.classList.add("hidden");
-        successMessage.classList.remove("hidden");
+        if (successMessage) successMessage.classList.remove("hidden");
       } else {
         alert("صار خطأ أثناء الإرسال، جرّبي مرة ثانية 🙏");
       }
@@ -38,20 +40,29 @@ if (form) {
     }
   });
 }
-// Scroll reveal animation (Fade/Slide on scroll)
-const reveals = document.querySelectorAll(".reveal");
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
+// Reveal on scroll (مضمون + fallback)
+(function revealOnScroll() {
+  const reveals = document.querySelectorAll(".reveal");
+  if (!reveals.length) return;
 
-reveals.forEach((el) => revealObserver.observe(el));
+  // إذا المتصفح ما يدعم IntersectionObserver: اظهر كل العناصر مباشرة
+  if (!("IntersectionObserver" in window)) {
+    reveals.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
 
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  reveals.forEach((el) => observer.observe(el));
+})();
