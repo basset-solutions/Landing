@@ -1,6 +1,6 @@
 import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
 
-// ---- Loader hide
+// Loader hide
 window.addEventListener("load", () => {
   const intro = document.getElementById("intro");
   setTimeout(() => {
@@ -10,8 +10,9 @@ window.addEventListener("load", () => {
   }, 1050);
 });
 
-// ---- Three setup
 const canvas = document.getElementById("three-canvas");
+
+// Renderer
 const renderer = new THREE.WebGLRenderer({
   canvas,
   antialias: true,
@@ -19,122 +20,113 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: "high-performance",
 });
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+renderer.setClearAlpha(0);
 
+// Scene
 const scene = new THREE.Scene();
+
+// Camera
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-camera.position.set(0, 0.4, 6.2);
+camera.position.set(0, 0.25, 6.0);
 
-// Lights
-const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-scene.add(ambient);
+// Lights (soft studio vibe)
+scene.add(new THREE.AmbientLight(0xffffff, 0.85));
 
-const key = new THREE.DirectionalLight(0xffffff, 1.0);
-key.position.set(3, 4, 2);
+const key = new THREE.DirectionalLight(0xffffff, 0.9);
+key.position.set(4, 5, 3);
 scene.add(key);
 
-const rim = new THREE.PointLight(0x00ffe1, 2.4, 30);
-rim.position.set(-3, 1.5, 4);
-scene.add(rim);
+const fill = new THREE.DirectionalLight(0x00ffe1, 0.55);
+fill.position.set(-4, 1.5, 4);
+scene.add(fill);
 
-const magenta = new THREE.PointLight(0xff50b4, 1.6, 30);
-magenta.position.set(2.6, -1.2, 3.5);
-scene.add(magenta);
+const mag = new THREE.DirectionalLight(0xff50b4, 0.25);
+mag.position.set(2.5, -2, 2);
+scene.add(mag);
 
-// Helpers: materials
-const ringMatA = new THREE.MeshStandardMaterial({
-  color: 0x00ffe1,
-  metalness: 0.75,
-  roughness: 0.25,
-  emissive: 0x001a16,
-  emissiveIntensity: 0.65,
+// Background “card” panel (NOT space): big smooth plane
+const bgGeo = new THREE.PlaneGeometry(18, 10, 1, 1);
+const bgMat = new THREE.MeshBasicMaterial({
+  color: 0x070a10,
+  transparent: true,
+  opacity: 0.0, // نخلي الخلفية من CSS، بس موجود لو احتجت لاحقاً
 });
-
-const ringMatB = new THREE.MeshStandardMaterial({
-  color: 0x7a5aff,
-  metalness: 0.65,
-  roughness: 0.35,
-  emissive: 0x0b0520,
-  emissiveIntensity: 0.7,
-});
-
-const ringMatC = new THREE.MeshStandardMaterial({
-  color: 0xff50b4,
-  metalness: 0.6,
-  roughness: 0.4,
-  emissive: 0x200010,
-  emissiveIntensity: 0.7,
-});
+const bg = new THREE.Mesh(bgGeo, bgMat);
+bg.position.z = -2.5;
+scene.add(bg);
 
 // Group
 const group = new THREE.Group();
 scene.add(group);
 
-// Rings (torus)
-function makeRing(radius, tube, mat) {
-  const geo = new THREE.TorusGeometry(radius, tube, 24, 120);
-  const mesh = new THREE.Mesh(geo, mat);
-  return mesh;
+// Materials (glassy / modern)
+const matA = new THREE.MeshPhysicalMaterial({
+  color: 0x00ffe1,
+  metalness: 0.2,
+  roughness: 0.25,
+  transmission: 0.35,      // pseudo-glass
+  thickness: 1.0,
+  clearcoat: 0.8,
+  clearcoatRoughness: 0.25,
+  ior: 1.3,
+  transparent: true,
+  opacity: 0.9,
+});
+
+const matB = matA.clone();
+matB.color = new THREE.Color(0x7a5aff);
+matB.transmission = 0.28;
+matB.opacity = 0.88;
+
+const matC = matA.clone();
+matC.color = new THREE.Color(0xff50b4);
+matC.transmission = 0.22;
+matC.opacity = 0.85;
+
+// Ribbons (torus knots look modern)
+function ribbon(radius, tube, mat) {
+  const geo = new THREE.TorusKnotGeometry(radius, tube, 220, 18, 2, 3);
+  return new THREE.Mesh(geo, mat);
 }
 
-const ring1 = makeRing(1.65, 0.06, ringMatA);
-ring1.rotation.x = Math.PI * 0.62;
+const r1 = ribbon(1.1, 0.10, matA);
+r1.rotation.x = Math.PI * 0.18;
 
-const ring2 = makeRing(1.2, 0.055, ringMatB);
-ring2.rotation.x = Math.PI * 0.55;
-ring2.rotation.z = Math.PI * 0.18;
+const r2 = ribbon(0.85, 0.09, matB);
+r2.rotation.x = Math.PI * 0.55;
+r2.rotation.z = Math.PI * 0.18;
 
-const ring3 = makeRing(0.82, 0.05, ringMatC);
-ring3.rotation.x = Math.PI * 0.52;
-ring3.rotation.z = -Math.PI * 0.12;
+const r3 = ribbon(0.62, 0.08, matC);
+r3.rotation.x = Math.PI * 0.82;
+r3.rotation.z = -Math.PI * 0.10;
 
-group.add(ring1, ring2, ring3);
+group.add(r1, r2, r3);
 
-// Core (glowing sphere)
-const coreGeo = new THREE.SphereGeometry(0.55, 64, 64);
+// Core disc (clean tech)
+const coreGeo = new THREE.CylinderGeometry(0.55, 0.55, 0.10, 64);
 const coreMat = new THREE.MeshStandardMaterial({
   color: 0xffffff,
-  metalness: 0.1,
-  roughness: 0.2,
-  emissive: 0x00ffe1,
-  emissiveIntensity: 0.75,
+  metalness: 0.65,
+  roughness: 0.22,
+  emissive: 0x001a16,
+  emissiveIntensity: 0.35,
 });
 const core = new THREE.Mesh(coreGeo, coreMat);
+core.rotation.x = Math.PI * 0.5;
 group.add(core);
 
-// Subtle “aura” (bigger transparent sphere)
-const auraGeo = new THREE.SphereGeometry(0.95, 64, 64);
-const auraMat = new THREE.MeshBasicMaterial({
+// Subtle glow plane behind (brand glow)
+const glowGeo = new THREE.PlaneGeometry(5.5, 5.5);
+const glowMat = new THREE.MeshBasicMaterial({
   color: 0x00ffe1,
   transparent: true,
   opacity: 0.06,
 });
-const aura = new THREE.Mesh(auraGeo, auraMat);
-group.add(aura);
+const glow = new THREE.Mesh(glowGeo, glowMat);
+glow.position.z = -0.8;
+group.add(glow);
 
-// Particles (points)
-const starsCount = 700;
-const positions = new Float32Array(starsCount * 3);
-for (let i = 0; i < starsCount; i++) {
-  // donut-ish distribution
-  const r = 2.2 + Math.random() * 4.0;
-  const theta = Math.random() * Math.PI * 2;
-  const y = (Math.random() - 0.5) * 2.2;
-  positions[i * 3 + 0] = Math.cos(theta) * r;
-  positions[i * 3 + 1] = y;
-  positions[i * 3 + 2] = Math.sin(theta) * r - 2.0; // push back
-}
-const starsGeo = new THREE.BufferGeometry();
-starsGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-const starsMat = new THREE.PointsMaterial({
-  color: 0xffffff,
-  size: 0.015,
-  transparent: true,
-  opacity: 0.45,
-});
-const stars = new THREE.Points(starsGeo, starsMat);
-scene.add(stars);
-
-// --- Resize
+// Resize
 function resize() {
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
@@ -142,50 +134,46 @@ function resize() {
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
 }
-const ro = new ResizeObserver(resize);
-ro.observe(canvas);
+new ResizeObserver(resize).observe(canvas);
 resize();
 
-// --- Parallax (mouse)
+// Parallax (mouse) — خفيف وراقي
 let targetX = 0, targetY = 0;
 window.addEventListener("mousemove", (e) => {
-  const x = (e.clientX / window.innerWidth) * 2 - 1; // -1..1
+  const x = (e.clientX / window.innerWidth) * 2 - 1;
   const y = (e.clientY / window.innerHeight) * 2 - 1;
   targetX = x;
   targetY = y;
 });
 
-// --- Animation loop
+// Animate
 let t = 0;
 function animate() {
   t += 0.01;
 
-  // smooth parallax
-  group.rotation.y += (targetX * 0.25 - group.rotation.y) * 0.04;
-  group.rotation.x += (-targetY * 0.18 - group.rotation.x) * 0.04;
+  // smooth tilt (NOT too “spacey”)
+  group.rotation.y += (targetX * 0.35 - group.rotation.y) * 0.04;
+  group.rotation.x += (-targetY * 0.22 - group.rotation.x) * 0.04;
 
-  // ring spins
-  ring1.rotation.z += 0.010;
-  ring2.rotation.z -= 0.012;
-  ring3.rotation.z += 0.014;
+  // classy motion
+  r1.rotation.z += 0.006;
+  r2.rotation.z -= 0.0075;
+  r3.rotation.z += 0.009;
 
-  // float
   group.position.y = Math.sin(t * 0.9) * 0.08;
 
-  // core pulse
-  const pulse = 1 + Math.sin(t * 1.6) * 0.03;
+  // subtle core pulse
+  const pulse = 1 + Math.sin(t * 1.3) * 0.02;
   core.scale.set(pulse, pulse, pulse);
-  aura.scale.set(1 + Math.sin(t * 1.2) * 0.06, 1 + Math.sin(t * 1.2) * 0.06, 1 + Math.sin(t * 1.2) * 0.06);
-
-  // stars slow drift
-  stars.rotation.y += 0.0008;
+  glow.material.opacity = 0.05 + (Math.sin(t * 1.1) * 0.01);
 
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
 animate();
 
-// pause when hidden (performance)
+// Pause on hidden (performance)
 document.addEventListener("visibilitychange", () => {
-  renderer.setAnimationLoop(document.hidden ? null : animate);
+  if (document.hidden) renderer.setAnimationLoop(null);
+  else renderer.setAnimationLoop(animate);
 });
