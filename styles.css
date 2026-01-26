@@ -71,18 +71,21 @@ body{
     linear-gradient(to bottom, rgba(7,10,16,.20), rgba(7,10,16,.88));
 }
 
-/* Content on top */
+/* Content on top — CLEAN */
 .hero-content{
   position: relative;
   z-index: 2;
   width: min(980px, 92vw);
   text-align: center;
   padding: 28px 18px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 20px 80px rgba(0,0,0,.45);
+
+  /* إزالة الإطارات والمربعات */
+  border: none;
+  box-shadow: none;
+
+  /* خليها صافية */
+  background: transparent;
+  backdrop-filter: none;
 }
 
 .hero-content h1{
@@ -90,12 +93,12 @@ body{
   line-height: 1.15;
   margin-bottom: 12px;
 }
+
 .hero-content p{
   font-size: clamp(1rem, 2.2vw, 1.2rem);
   color: var(--muted);
   margin-bottom: 22px;
 }
-
 .actions{
   display: flex;
   gap: 12px;
