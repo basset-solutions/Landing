@@ -1,39 +1,48 @@
-<!DOCTYPE html>
-<html lang="ar">
+<!doctype html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Basset Solutions</title>
-
-  <!-- Spline -->
-  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.39/build/spline-viewer.js"></script>
-
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
+<body>
   <!-- Intro Loader -->
-  <div id="intro">
-    <div class="bar"></div>
+  <div id="intro" aria-hidden="true">
+    <div class="intro-bar"></div>
   </div>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <main class="hero" id="top">
+    <!-- Animated Background -->
+    <canvas id="bg" class="bg-canvas"></canvas>
 
-    <!-- Spline Background -->
-    <div class="hero-spline hidden" id="splineBg">
-      <spline-viewer 
-        url="https://prod.spline.design/ZR2WxfJjPCiqjnFt/scene.splinecode">
-      </spline-viewer>
-    </div>
+    <!-- Soft animated blobs -->
+    <div class="blob blob-1" aria-hidden="true"></div>
+    <div class="blob blob-2" aria-hidden="true"></div>
+    <div class="blob blob-3" aria-hidden="true"></div>
 
-    <!-- Hero Content -->
+    <!-- Content -->
     <div class="hero-content">
       <h1>نُبسّط التعقيد</h1>
-      <p>حلول رقمية ذكية بتجربة ثلاثية الأبعاد</p>
-      <a href="#contact" class="btn">تواصل معنا</a>
-    </div>
+      <p>حلول رقمية ذكية بتجربة تفاعلية سلسة</p>
 
+      <div class="actions">
+        <a class="btn" href="#contact">تواصل معنا</a>
+        <a class="btn ghost" href="#services">خدماتنا</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Dummy sections (اختياري) -->
+  <section id="services" class="section">
+    <h2>الخدمات</h2>
+    <p>اكتب محتواك هنا…</p>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>تواصل</h2>
+    <p>اكتب بيانات التواصل هنا…</p>
   </section>
 
   <script src="main.js"></script>
