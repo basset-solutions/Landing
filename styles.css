@@ -494,3 +494,74 @@ a { color: inherit; text-decoration: none; }
 
   .step__num { justify-self: start; }
 }
+/* =========================
+   Theme (Dark/Light)
+   ========================= */
+
+/* default (dark) already in :root عندك، بس نخليها "حقيقية" للثيم */
+:root {
+  --page-bg: var(--bg-dark);
+  --page-bg-2: var(--bg-dark-2);
+
+  --card-bg: rgba(255,255,255,0.06);
+  --card-stroke: rgba(255,255,255,0.10);
+
+  --text-main: var(--text);
+  --text-muted: var(--muted);
+
+  --header-bg: rgba(5, 7, 12, 0.55);
+}
+
+/* طبّقي المتغيرات على العناصر الأساسية */
+body {
+  background:
+    radial-gradient(1200px 700px at 50% 0%, rgba(109,92,255,0.18), transparent 60%),
+    radial-gradient(900px 600px at 20% 20%, rgba(58,160,255,0.12), transparent 55%),
+    linear-gradient(180deg, var(--page-bg) 0%, var(--page-bg-2) 100%);
+  color: var(--text-main);
+}
+
+.header {
+  background: var(--header-bg);
+}
+
+.card,
+.stat,
+.benefits,
+.form,
+.success {
+  background: var(--card-bg);
+  border-color: var(--card-stroke);
+}
+
+/* Light mode overrides */
+html[data-theme="light"] {
+  --page-bg: #f7f8fb;
+  --page-bg-2: #eef1f7;
+
+  --text-main: #0b1220;
+  --text-muted: rgba(11,18,32,0.68);
+
+  --card-bg: rgba(255,255,255,0.78);
+  --card-stroke: rgba(11,18,32,0.10);
+
+  --header-bg: rgba(247, 248, 251, 0.72);
+}
+
+/* حقول الفورم في اللايت */
+html[data-theme="light"] .field__input {
+  background: rgba(255,255,255,0.9);
+  color: #0b1220;
+  border-color: rgba(11,18,32,0.12);
+}
+
+html[data-theme="light"] .field__input::placeholder {
+  color: rgba(11,18,32,0.45);
+}
+
+/* تحسين زر التبديل */
+.theme-toggle {
+  user-select: none;
+  gap: 8px;
+}
+
