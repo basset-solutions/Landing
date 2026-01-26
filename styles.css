@@ -87,7 +87,7 @@ body{
   100% { transform: translate3d(0,0,0) scale(1); }
 }
 
-/* Overlay to improve readability */
+/* Overlay readability */
 .hero::after{
   content:"";
   position:absolute;
@@ -114,7 +114,6 @@ body{
 .hero-content h1{
   font-size: clamp(2rem, 4.8vw, 3.6rem);
   line-height: 1.15;
-  letter-spacing: .2px;
   margin-bottom: 14px;
 }
 
@@ -142,7 +141,6 @@ body{
   border: 1px solid transparent;
   background: var(--accent);
   color: #00110d;
-  box-shadow: 0 0 0 rgba(0,255,225,0);
   transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
 }
 .btn:hover{
@@ -154,9 +152,7 @@ body{
   border-color: rgba(255,255,255,.22);
   color: var(--text);
 }
-.btn.ghost:hover{
-  opacity: .9;
-}
+.btn.ghost:hover{ opacity: .9; }
 
 /* Sections */
 .section{
