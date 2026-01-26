@@ -72,3 +72,41 @@ if (form) {
 
   reveals.forEach((el) => observer.observe(el));
 })();
+// Theme toggle (Dark/Light) + حفظ الاختيار
+(function themeToggle() {
+  const root = document.documentElement;
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+
+  const icon = btn.querySelector(".theme-toggle__icon");
+  const text = btn.querySelector(".theme-toggle__text");
+
+  // 1) اعرف الثيم الابتدائي: localStorage > إعداد الجهاز > دارك
+  const saved = localStorage.getItem("theme");
+  const systemPrefersLight =
+    window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+
+  const initialTheme = saved || (systemPrefersLight ? "light" : "dark");
+  applyTheme(initialTheme);
+
+  // 2) تبديل عند الضغط
+  btn.addEventListener("click", () => {
+    const current = root.getAttribute("data-theme") || "dark";
+    const next = current === "dark" ? "light" : "dark";
+    applyTheme(next);
+    localStorage.setItem("theme", next);
+  });
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+
+    // تحديث نص/أيقونة الزر
+    if (theme === "light") {
+      if (icon) icon.textContent = "☀️";
+      if (text) text.textContent = "فاتح";
+    } else {
+      if (icon) icon.textContent = "🌙";
+      if (text) text.textContent = "داكن";
+    }
+  }
+})();
