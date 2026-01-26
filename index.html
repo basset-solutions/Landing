@@ -87,7 +87,6 @@
       background: radial-gradient(circle at 30% 30%, rgba(255,80,180,.8), rgba(255,80,180,0) 60%);
       animation-duration: 16s;
     }
-
     @keyframes floaty{
       0%   { transform: translate3d(0,0,0) scale(1); }
       50%  { transform: translate3d(30px, -22px, 0) scale(1.06); }
@@ -104,11 +103,22 @@
       pointer-events:none;
     }
 
-    /* Content */
-    .hero-content{
+    /* ===== Layout (content + 3D object) ===== */
+    .hero-grid{
       position: relative;
       z-index: 3;
-      width: min(980px, 92vw);
+      width: min(1100px, 92vw);
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: center;
+    }
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns: 1fr; gap: 14px; }
+    }
+
+    /* Content card */
+    .hero-content{
       text-align: center;
       padding: 28px 18px;
       border: 1px solid var(--border);
@@ -117,13 +127,11 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 20px 80px rgba(0,0,0,.45);
     }
-
     .hero-content h1{
       font-size: clamp(2rem, 4.8vw, 3.6rem);
       line-height: 1.15;
       margin-bottom: 14px;
     }
-
     .hero-content p{
       font-size: clamp(1rem, 2.2vw, 1.2rem);
       color: var(--muted);
@@ -136,7 +144,6 @@
       justify-content: center;
       flex-wrap: wrap;
     }
-
     .btn{
       display: inline-flex;
       align-items: center;
@@ -144,7 +151,7 @@
       padding: 12px 22px;
       border-radius: 999px;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       border: 1px solid transparent;
       background: var(--accent);
       color: #00110d;
@@ -160,6 +167,107 @@
       color: var(--text);
     }
     .btn.ghost:hover{ opacity: .9; }
+
+    /* ===== 3D object stage ===== */
+    .stage{
+      display: grid;
+      place-items: center;
+      height: 520px;
+    }
+    @media (max-width: 900px){
+      .stage{ height: 420px; }
+    }
+
+    .card3d{
+      position: relative;
+      width: min(420px, 86vw);
+      height: 420px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: radial-gradient(120% 120% at 20% 10%, rgba(0,255,225,.16), rgba(255,255,255,.04), rgba(0,0,0,.2));
+      box-shadow: 0 30px 120px rgba(0,0,0,.55);
+      transform-style: preserve-3d;
+      will-change: transform;
+      overflow: hidden;
+    }
+
+    .card3d-glow{
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 30% 30%, rgba(0,255,225,.55), rgba(120,90,255,.25), rgba(0,0,0,0) 60%);
+      filter: blur(22px);
+      transform: translateZ(40px);
+      opacity: .65;
+    }
+
+    .card3d-sheen{
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, rgba(255,255,255,.10), rgba(255,255,255,0) 35%, rgba(255,255,255,.08));
+      transform: translateZ(60px);
+      opacity: .55;
+      mix-blend-mode: screen;
+    }
+
+    .ring{
+      position: absolute;
+      inset: 22%;
+      border-radius: 999px;
+      border: 1px solid rgba(0,255,225,.35);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.05) inset;
+      transform-style: preserve-3d;
+      transform: translateZ(80px) rotateX(70deg);
+      filter: drop-shadow(0 0 18px rgba(0,255,225,.18));
+    }
+    .ring-1{ inset: 18%; opacity: .85; }
+    .ring-2{
+      inset: 28%;
+      border-color: rgba(120,90,255,.35);
+      opacity: .75;
+      transform: translateZ(60px) rotateX(62deg) rotateZ(25deg);
+    }
+    .ring-3{
+      inset: 38%;
+      border-color: rgba(255,80,180,.25);
+      opacity: .65;
+      transform: translateZ(40px) rotateX(58deg) rotateZ(-18deg);
+    }
+
+    .core{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 140px;
+      height: 140px;
+      border-radius: 999px;
+      transform: translate(-50%, -50%) translateZ(120px);
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(0,255,225,.55), rgba(0,0,0,.0) 65%);
+      box-shadow: 0 0 60px rgba(0,255,225,.22), 0 0 120px rgba(120,90,255,.10);
+    }
+
+    .dots{
+      position: absolute;
+      inset: 0;
+      transform: translateZ(20px);
+      opacity: .35;
+      background-image: radial-gradient(rgba(255,255,255,.35) 1px, rgba(0,0,0,0) 1px);
+      background-size: 18px 18px;
+      mask-image: radial-gradient(circle at 60% 40%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 68%);
+    }
+
+    @media (prefers-reduced-motion: no-preference){
+      .card3d{ animation: floatCard 6.5s ease-in-out infinite; }
+      @keyframes floatCard{
+        0%,100%{ transform: rotateX(0deg) rotateY(0deg) translateY(0); }
+        50%{ transform: rotateX(2deg) rotateY(-3deg) translateY(-8px); }
+      }
+      .ring-1{ animation: spin1 7s linear infinite; }
+      .ring-2{ animation: spin2 9s linear infinite; }
+      .ring-3{ animation: spin3 11s linear infinite; }
+      @keyframes spin1{ to{ transform: translateZ(80px) rotateX(70deg) rotateZ(360deg); } }
+      @keyframes spin2{ to{ transform: translateZ(60px) rotateX(62deg) rotateZ(-360deg); } }
+      @keyframes spin3{ to{ transform: translateZ(40px) rotateX(58deg) rotateZ(360deg); } }
+    }
 
     /* Sections */
     .section{
@@ -190,13 +298,29 @@
     <div class="blob blob-2" aria-hidden="true"></div>
     <div class="blob blob-3" aria-hidden="true"></div>
 
-    <div class="hero-content">
-      <h1>نُبسّط التعقيد</h1>
-      <p>حلول رقمية ذكية بتجربة تفاعلية سلسة</p>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <h1>نُبسّط التعقيد</h1>
+        <p>تجربة واجهة حديثة مع حركة “3D feel” — بدون Spline</p>
 
-      <div class="actions">
-        <a class="btn" href="#contact">تواصل معنا</a>
-        <a class="btn ghost" href="#services">خدماتنا</a>
+        <div class="actions">
+          <a class="btn" href="#contact">تواصل معنا</a>
+          <a class="btn ghost" href="#services">خدماتنا</a>
+        </div>
+      </div>
+
+      <div class="stage" aria-hidden="true">
+        <div class="card3d" id="card3d">
+          <div class="card3d-glow"></div>
+          <div class="card3d-sheen"></div>
+
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+
+          <div class="core"></div>
+          <div class="dots"></div>
+        </div>
       </div>
     </div>
   </main>
@@ -222,7 +346,7 @@
       }, 1100);
     });
 
-    // Canvas particles background
+    // ===== Canvas particles background =====
     const canvas = document.getElementById("bg");
     const ctx = canvas.getContext("2d", { alpha: true });
 
@@ -259,12 +383,14 @@
     function step() {
       ctx.clearRect(0, 0, w, h);
 
+      // subtle glow vignette
       const g = ctx.createRadialGradient(w * 0.5, h * 0.35, 40, w * 0.5, h * 0.5, Math.max(w, h));
       g.addColorStop(0, "rgba(0,255,225,0.06)");
       g.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, w, h);
 
+      // particles
       for (const p of particles) {
         p.x += p.vx; p.y += p.vy;
 
@@ -279,6 +405,7 @@
         ctx.fill();
       }
 
+      // connections
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const a = particles[i], b = particles[j];
@@ -313,6 +440,36 @@
         step();
       }
     });
+
+    // ===== 3D parallax for the object (mouse + touch) =====
+    const card = document.getElementById("card3d");
+
+    function setTilt(clientX, clientY) {
+      const r = card.getBoundingClientRect();
+      const x = (clientX - r.left) / r.width;   // 0..1
+      const y = (clientY - r.top) / r.height;  // 0..1
+      const rotY = (x - 0.5) * 18;
+      const rotX = (0.5 - y) * 14;
+      card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    }
+
+    if (card) {
+      window.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        setTilt(e.clientX, e.clientY);
+      });
+
+      window.addEventListener("touchmove", (e) => {
+        if (!e.touches?.length) return;
+        const t = e.touches[0];
+        setTilt(t.clientX, t.clientY);
+      }, { passive: true });
+
+      window.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0deg) rotateY(0deg)";
+      });
+    }
   </script>
 </body>
 </html>
