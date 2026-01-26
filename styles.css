@@ -564,4 +564,38 @@ html[data-theme="light"] .field__input::placeholder {
   user-select: none;
   gap: 8px;
 }
+/* خلفية Spline للـ Hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-spline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-spline spline-viewer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* خلي محتوى الهيرو فوق السبلين */
+.hero .hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* طبقة تغميق بسيطة عشان النص يقرأ بوضوح */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.25);
+}
+
 
