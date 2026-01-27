@@ -5,68 +5,52 @@ if (!canvas) {
   console.warn("hero-3d canvas not found");
 } else {
   const isMobile = matchMedia("(max-width: 900px)").matches;
-  const DPR = isMobile ? 1 : Math.min(1.5, window.devicePixelRatio || 1);
 
+  // ثابت وخفيف جدًا (أهم شيء للجوال)
   const renderer = new THREE.WebGLRenderer({
     canvas,
     alpha: true,
     antialias: false,
     powerPreference: "low-power",
   });
-  renderer.setPixelRatio(DPR);
+  renderer.setPixelRatio(1);
 
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 50);
-  camera.position.set(0, 0.15, 6);
+  camera.position.set(0, 0.05, 6);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.92));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.95));
 
-  const key = new THREE.DirectionalLight(0xffffff, 0.75);
-  key.position.set(3.5, 4.5, 3);
+  const key = new THREE.DirectionalLight(0xffffff, 0.7);
+  key.position.set(4, 5, 4);
   scene.add(key);
 
-  const accentA = new THREE.DirectionalLight(0x6d5cff, 0.55);
-  accentA.position.set(-4, -2, 3);
-  scene.add(accentA);
+  const accent = new THREE.DirectionalLight(0x6d5cff, 0.55);
+  accent.position.set(-4, -2, 3);
+  scene.add(accent);
 
-  const accentB = new THREE.DirectionalLight(0x3aa0ff, 0.35);
-  accentB.position.set(4, -1.5, 2);
-  scene.add(accentB);
+  const accent2 = new THREE.DirectionalLight(0x3aa0ff, 0.35);
+  accent2.position.set(4, -1.5, 2);
+  scene.add(accent2);
 
-  const group = new THREE.Group();
-  scene.add(group);
-
-  const matPurple = new THREE.MeshStandardMaterial({
-    color: 0x6d5cff,
-    metalness: 0.15,
-    roughness: 0.55,
-    emissive: 0x120a3a,
-    emissiveIntensity: 0.30,
-  });
-
-  const matBlue = new THREE.MeshStandardMaterial({
+  // ✅ شكل واحد فقط
+  const mat = new THREE.MeshStandardMaterial({
     color: 0x3aa0ff,
-    metalness: 0.15,
-    roughness: 0.58,
+    metalness: 0.12,
+    roughness: 0.62,
     emissive: 0x061a33,
-    emissiveIntensity: 0.30,
+    emissiveIntensity: 0.25,
   });
 
-  function ring(radius, tube, mat, rx, rz) {
-    const radialSegments = isMobile ? 12 : 16;
-    const tubularSegments = isMobile ? 64 : 90;
-    const geo = new THREE.TorusGeometry(radius, tube, radialSegments, tubularSegments);
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.rotation.x = rx;
-    mesh.rotation.z = rz;
-    return mesh;
-  }
+  const radialSegments = isMobile ? 12 : 16;
+  const tubularSegments = isMobile ? 64 : 90;
 
-  const r1 = ring(1.55, 0.085, matPurple, Math.PI * 0.45, 0);
-  const r2 = ring(1.15, 0.080, matBlue,   Math.PI * 0.35, Math.PI * 0.20);
-  const r3 = ring(0.82, 0.075, matPurple, Math.PI * 0.55, -Math.PI * 0.18);
-  group.add(r1, r2, r3);
+  const geo = new THREE.TorusGeometry(1.45, 0.10, radialSegments, tubularSegments);
+  const ring = new THREE.Mesh(geo, mat);
+  ring.rotation.x = Math.PI * 0.45;
+  ring.rotation.z = Math.PI * 0.15;
+  scene.add(ring);
 
   function resize() {
     const w = canvas.clientWidth;
@@ -74,6 +58,15 @@ if (!canvas) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+
+    // مكانه داخل الهيرو فقط (فوق)، ما ينزل تحت
+    if (isMobile) {
+      ring.position.set(0, -0.35, 0);
+      ring.scale.set(0.88, 0.88, 0.88);
+    } else {
+      ring.position.set(0, -0.10, 0);
+      ring.scale.set(1, 1, 1);
+    }
   }
   new ResizeObserver(resize).observe(canvas);
   resize();
@@ -84,13 +77,9 @@ if (!canvas) {
   function animate() {
     t += 0.01;
 
-    r1.rotation.z += 0.0045;
-    r2.rotation.z -= 0.0058;
-    r3.rotation.z += 0.0070;
-
-    group.position.y = Math.sin(t * 0.9) * 0.055;
-    group.rotation.y = Math.sin(t * 0.35) * 0.12;
-    group.rotation.x = Math.cos(t * 0.28) * 0.08;
+    ring.rotation.z += 0.006;
+    ring.rotation.y = Math.sin(t * 0.35) * 0.25;
+    ring.rotation.x = Math.PI * 0.45 + Math.cos(t * 0.25) * 0.08;
 
     renderer.render(scene, camera);
     raf = requestAnimationFrame(animate);
