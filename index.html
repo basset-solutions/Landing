@@ -1,83 +1,362 @@
 <!doctype html>
 <html lang="ar" dir="rtl" class="no-js">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>بسّط | نبسّط العمل ونحوّل التعقيد إلى أنظمة ذكية</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بسّط | نبسّط العمل ونحوّل التعقيد إلى أنظمة ذكية</title>
+    <meta
+      name="description"
+      content="نساعد الشركات الصغيرة والمتوسطة في السعودية على تحسين عملياتها عبر التشخيص، إعادة تصميم العمليات، الأتمتة، والتقارير المبنية على البيانات."
+    />
 
-  <meta name="description"
-    content="نساعد الشركات الصغيرة والمتوسطة في السعودية على تحسين عملياتها عبر التشخيص، الأتمتة، وإعادة تصميم العمليات." />
+    <!-- ✅ مهم: خليها ./ -->
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
 
-  <link rel="stylesheet" href="styles.css" />
-  <script src="script.js" defer></script>
-</head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container header__inner">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">⬡</div>
+          <div class="brand__name">بسّط</div>
+        </div>
 
-<body>
+        <nav class="nav">
+          <a href="#why">لماذا بسّط</a>
+          <a href="#services">خدماتنا</a>
+          <a href="#how">كيف نعمل</a>
+          <a class="btn btn--ghost" href="#contact">تواصل معنا</a>
+        </nav>
+      </div>
+    </header>
 
-<header class="header">
-  <div class="container header__inner">
-    <div class="brand">
-      <div class="brand__mark">⬡</div>
-      <div class="brand__name">بسّط</div>
-    </div>
+    <main>
+      <!-- Hero -->
+      <section class="hero" id="top">
+        <!-- ✅ 3D Canvas خلفية (بديل Spline) -->
+        <canvas id="hero-3d" aria-hidden="true"></canvas>
 
-    <nav class="nav">
-      <a href="#why">لماذا بسّط</a>
-      <a href="#services">خدماتنا</a>
-      <a href="#how">كيف نعمل</a>
-      <a class="btn btn--ghost" href="#contact">تواصل معنا</a>
-    </nav>
-  </div>
-</header>
+        <div class="container hero__inner">
+          <h1 class="hero__title">نبسّط التعقيد ونخلي الشغل أوضح</h1>
+          <p class="hero__subtitle">
+            فريق سعودي يقدّم حلول تقنية ذكية تقلّل الجهد وتزيد الكفاءة
+          </p>
 
-<main>
+          <p class="hero__desc">
+            نساعد الشركات الصغيرة والمتوسطة في السعودية على تحسين عملياتها التشغيلية عبر
+            تشخيص مراحل العمل الحالية، أتمتتها بالأدوات المناسبة، وتقديم تقارير مبنية على البيانات
+            لرفع الكفاءة وخفض التكاليف وتحسين رضا العملاء والموظفين.
+          </p>
 
-<!-- HERO -->
-<section class="hero" id="top">
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#contact">تواصل معنا</a>
+            <a class="btn btn--ghost" href="#services">استعرض الخدمات</a>
+          </div>
+        </div>
 
-  <!-- 3D Background -->
-  <canvas id="hero-3d" aria-hidden="true"></canvas>
+        <!-- موجة خلفية متحركة -->
+        <div class="hero-wave" aria-hidden="true">
+          <svg viewBox="0 0 1200 260" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="waveGlow" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#6d5cff" stop-opacity="0.0" />
+                <stop offset="0.25" stop-color="#6d5cff" stop-opacity="0.75" />
+                <stop offset="0.55" stop-color="#3aa0ff" stop-opacity="0.85" />
+                <stop offset="0.85" stop-color="#6d5cff" stop-opacity="0.75" />
+                <stop offset="1" stop-color="#6d5cff" stop-opacity="0.0" />
+              </linearGradient>
 
-  <div class="container hero__inner">
-    <h1 class="hero__title">نبسّط التعقيد ونخلي الشغل أوضح</h1>
-    <p class="hero__subtitle">
-      فريق سعودي يقدّم حلول تقنية ذكية تقلّل الجهد وتزيد الكفاءة
-    </p>
+              <linearGradient id="waveLine" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.0" />
+                <stop offset="0.35" stop-color="#e8f2ff" stop-opacity="0.95" />
+                <stop offset="0.6" stop-color="#ffffff" stop-opacity="0.95" />
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0.0" />
+              </linearGradient>
+            </defs>
 
-    <p class="hero__desc">
-      نساعد الشركات الصغيرة والمتوسطة في السعودية على تحسين عملياتها التشغيلية
-      عبر تشخيص العمل الحالي، أتمتته، وبناء تقارير مبنية على البيانات.
-    </p>
+            <g class="wave wave--back">
+              <path
+                d="M0,170 C120,120 240,220 360,170 C480,120 600,220 720,170 C840,120 960,220 1080,170 C1140,145 1170,140 1200,150"
+                fill="none"
+                stroke="url(#waveGlow)"
+                stroke-width="20"
+                stroke-linecap="round"
+              />
+            </g>
 
-    <div class="hero__cta">
-      <a class="btn btn--primary" href="#contact">تواصل معنا</a>
-      <a class="btn btn--ghost" href="#services">استعرض الخدمات</a>
-    </div>
-  </div>
+            <g class="wave wave--front">
+              <path
+                d="M0,170 C120,120 240,220 360,170 C480,120 600,220 720,170 C840,120 960,220 1080,170 C1140,145 1170,140 1200,150"
+                fill="none"
+                stroke="url(#waveLine)"
+                stroke-width="6"
+                stroke-linecap="round"
+              />
+            </g>
+          </svg>
+        </div>
+      </section>
 
-  <!-- Wave -->
-  <div class="hero-wave" aria-hidden="true">
-    <svg viewBox="0 0 1200 260" preserveAspectRatio="none">
-      <path d="M0,170 C120,120 240,220 360,170 C480,120 600,220 720,170 C840,120 960,220 1080,170 C1140,145 1170,140 1200,150"
-        fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="4" />
-    </svg>
-  </div>
-</section>
+      <!-- Why -->
+      <section class="section reveal" id="why">
+        <div class="container">
+          <div class="section__head">
+            <div class="pill">لماذا نحن</div>
+            <h2 class="section__title">لماذا بسّط؟</h2>
+            <p class="section__desc">نؤمن أن التقنية يجب أن تخدم العمل، لا أن تُعقّده.</p>
+          </div>
 
-<!-- باقي الموقع كما هو -->
-<section class="section" id="why"><div class="container"><h2>لماذا بسّط؟</h2></div></section>
-<section class="section section--alt" id="services"><div class="container"><h2>خدماتنا</h2></div></section>
-<section class="section" id="how"><div class="container"><h2>كيف نعمل</h2></div></section>
-<section class="section section--alt" id="contact"><div class="container"><h2>تواصل معنا</h2></div></section>
+          <div class="grid grid--4">
+            <article class="card reveal">
+              <div class="icon">🚀</div>
+              <h3>نتائج من اليوم الأول</h3>
+              <p>تأثير فوري وملموس على سير العمل.</p>
+            </article>
 
-</main>
+            <article class="card reveal">
+              <div class="icon">🧩</div>
+              <h3>أنظمة قابلة للتوسع</h3>
+              <p>تنمو مع نمو أعمالك بدون إعادة بناء.</p>
+            </article>
 
-<footer class="footer">
-  <div class="container footer__inner">
-    <div>© 2026 بسّط</div>
-  </div>
-</footer>
+            <article class="card reveal">
+              <div class="icon">⚙️</div>
+              <h3>حلول عملية</h3>
+              <p>لا نظريات… نطبق حلول فعّالة.</p>
+            </article>
 
-<script type="module" src="hero-3d.js"></script>
-</body>
+            <article class="card reveal">
+              <div class="icon">🇸🇦</div>
+              <h3>فريق سعودي</h3>
+              <p>نفهم السوق المحلي واحتياجاته.</p>
+            </article>
+          </div>
+
+          <div class="stats reveal">
+            <div class="stat">
+              <div class="stat__num">3x</div>
+              <div class="stat__label">زيادة الكفاءة</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">24/7</div>
+              <div class="stat__label">دعم فني</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">98%</div>
+              <div class="stat__label">رضا العملاء</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">+50</div>
+              <div class="stat__label">مشروع منجز</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="section section--alt reveal" id="services">
+        <div class="container">
+          <div class="section__head">
+            <div class="pill">خدماتنا</div>
+            <h2 class="section__title">حلول تقنية متكاملة</h2>
+            <p class="section__desc">
+              مجموعة خدمات مصممة لتبسيط أعمالك ورفع الأداء التشغيلي.
+            </p>
+          </div>
+
+          <div class="grid grid--3">
+            <article class="card card--big reveal">
+              <div class="icon">🔎</div>
+              <h3>تشخيص شامل (As-Is)</h3>
+              <p>نحلل مراحل العمل الحالية ونحدد نقاط التعطّل والهدر.</p>
+            </article>
+
+            <article class="card card--big reveal">
+              <div class="icon">🧠</div>
+              <h3>تصميم وإعادة هيكلة (To-Be)</h3>
+              <p>نصمم عمليات واضحة قابلة للقياس والتوسع.</p>
+            </article>
+
+            <article class="card card--big reveal">
+              <div class="icon">🔁</div>
+              <h3>تنفيذ الأتمتة</h3>
+              <p>Workflows و Integrations لتقليل الأخطاء وتوفير الوقت.</p>
+            </article>
+
+            <article class="card card--big reveal">
+              <div class="icon">📊</div>
+              <h3>تقارير دورية</h3>
+              <p>تقارير أسبوعية/شهرية حسب الطلب مبنية على KPIs.</p>
+            </article>
+
+            <article class="card card--big reveal">
+              <div class="icon">🧑‍💼</div>
+              <h3>رضا الموظفين</h3>
+              <p>استبيانات + تحليل دوري لرفع الرضا وتحسين الأداء.</p>
+            </article>
+
+            <article class="card card--big reveal">
+              <div class="icon">🛠️</div>
+              <h3>دعم وتشغيل أو تدريب</h3>
+              <p>دعم مستمر أو تدريب فرق العميل حسب الحاجة.</p>
+            </article>
+          </div>
+
+          <div class="benefits reveal">
+            <div class="benefits__head">
+              <h3 class="benefits__title">الفائدة التي تلاحظها بسرعة</h3>
+              <p class="benefits__desc">
+                تحسينات عملية ومباشرة على جودة العمل والإنتاجية.
+              </p>
+            </div>
+
+            <ul class="checklist">
+              <li>خفض الأخطاء اليدوية</li>
+              <li>تسريع دورة العمل</li>
+              <li>تحسين اتخاذ القرار بالبيانات</li>
+              <li>رفع رضا الموظفين</li>
+              <li>توفير وقت الإدارة على المهام الروتينية</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- How -->
+      <section class="section reveal" id="how">
+        <div class="container">
+          <div class="section__head">
+            <div class="pill">منهجية العمل</div>
+            <h2 class="section__title">كيف نعمل</h2>
+            <p class="section__desc">تقنية واضحة. سير عمل منظم. نمو بدون تعقيد.</p>
+          </div>
+
+          <div class="timeline">
+            <div class="step reveal">
+              <div class="step__num">1</div>
+              <div class="step__body">
+                <h3>جلسة فهم ومواءمة</h3>
+                <p>نفهم أهدافك ونحدد نطاق العمل والمؤشرات المطلوبة.</p>
+              </div>
+            </div>
+
+            <div class="step reveal">
+              <div class="step__num">2</div>
+              <div class="step__body">
+                <h3>تشخيص As-Is</h3>
+                <p>نوثق العمليات الحالية ونكتشف نقاط التحسين.</p>
+              </div>
+            </div>
+
+            <div class="step reveal">
+              <div class="step__num">3</div>
+              <div class="step__body">
+                <h3>تصميم To-Be</h3>
+                <p>نضع نموذج تشغيل جديد مبسّط وواضح.</p>
+              </div>
+            </div>
+
+            <div class="step reveal">
+              <div class="step__num">4</div>
+              <div class="step__body">
+                <h3>أتمتة + تقارير</h3>
+                <p>ننفذ الأتمتة ونبني لوحة مؤشرات وتقارير دورية.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section section--alt reveal" id="contact">
+        <div class="container">
+          <div class="_forward"> </div>
+          <div class="section__head">
+            <div class="pill">تواصل معنا</div>
+            <h2 class="section__title">خلّنا نبسّط شغلك</h2>
+            <p class="section__desc">اكتب بياناتك، ونرد عليك خلال 24 ساعة.</p>
+          </div>
+
+          <div class="contact">
+            <div id="success-message" class="success hidden">
+              <div class="success__icon">✅</div>
+              <h3>تم إرسال رسالتك بنجاح</h3>
+              <p>شكراً لتواصلك معنا، بنرجع لك خلال 24 ساعة.</p>
+            </div>
+
+            <form
+              id="contact-form"
+              class="form"
+              action="https://formspree.io/f/xeeadzzw"
+              method="POST"
+            >
+              <label class="field">
+                <span class="field__label">الاسم</span>
+                <input
+                  class="field__input"
+                  type="text"
+                  name="name"
+                  placeholder="اسمك الكامل"
+                  required
+                />
+              </label>
+
+              <label class="field">
+                <span class="field__label">البريد الإلكتروني</span>
+                <input
+                  class="field__input"
+                  type="email"
+                  name="email"
+                  placeholder="email@example.com"
+                  required
+                />
+              </label>
+
+              <label class="field">
+                <span class="field__label">رسالتك</span>
+                <textarea
+                  class="field__input field__textarea"
+                  name="message"
+                  rows="5"
+                  placeholder="كيف نقدر نساعدك؟"
+                  required
+                ></textarea>
+              </label>
+
+              <button class="btn btn--primary btn--wide" type="submit">
+                أرسل <span aria-hidden="true">✈️</span>
+              </button>
+
+              <div class="contact__email">
+                <span>team@basset-sa.com</span>
+                <span aria-hidden="true">✉️</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <div class="brand__mark" aria-hidden="true">⬡</div>
+          <div class="footer__text">
+            <div>© 2026 بسّط. جميع الحقوق محفوظة.</div>
+            <div class="muted">صنع في السعودية ❤️</div>
+          </div>
+        </div>
+
+        <div class="footer__links">
+          <a href="#why">لماذا بسّط</a>
+          <a href="#services">خدماتنا</a>
+          <a href="#contact">تواصل معنا</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ✅ استدعاء 3D (مهم يكون type="module") -->
+    <script type="module" src="./hero-3d.js"></script>
+  </body>
 </html>
