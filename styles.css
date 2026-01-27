@@ -126,3 +126,31 @@ if (form) {
   position: relative;
   z-index: 2;
 }
+/* =========================
+   Hero 3D Canvas (No Spline)
+   ========================= */
+#hero-3d{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.hero__inner{
+  position: relative;
+  z-index: 2;
+}
+
+/* (اختياري) لو تحس الخلفية قوية على النص */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background: radial-gradient(900px 600px at 50% 35%, rgba(0,0,0,0.18), rgba(0,0,0,0));
+}
+
