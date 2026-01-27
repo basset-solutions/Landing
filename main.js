@@ -51,9 +51,7 @@ const bgMat = new THREE.MeshBasicMaterial({
   transparent: true,
   opacity: 0.0, // نخلي الخلفية من CSS، بس موجود لو احتجت لاحقاً
 });
-const bg = new THREE.Mesh(bgGeo, bgMat);
-bg.position.z = -2.5;
-scene.add(bg);
+
 
 // Group
 const group = new THREE.Group();
