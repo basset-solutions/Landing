@@ -18,41 +18,44 @@ if (!canvas) {
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 50);
-  camera.position.set(0, 0.18, 6);
+  camera.position.set(0, 0.15, 6);
 
-  // lights (خفيفة)
   scene.add(new THREE.AmbientLight(0xffffff, 0.92));
 
   const key = new THREE.DirectionalLight(0xffffff, 0.75);
   key.position.set(3.5, 4.5, 3);
   scene.add(key);
 
-  const accent = new THREE.DirectionalLight(0x6d5cff, 0.55);
-  accent.position.set(-4, -2, 3);
-  scene.add(accent);
+  const accentA = new THREE.DirectionalLight(0x6d5cff, 0.55);
+  accentA.position.set(-4, -2, 3);
+  scene.add(accentA);
+
+  const accentB = new THREE.DirectionalLight(0x3aa0ff, 0.35);
+  accentB.position.set(4, -1.5, 2);
+  scene.add(accentB);
 
   const group = new THREE.Group();
   scene.add(group);
 
-  const matA = new THREE.MeshStandardMaterial({
+  const matPurple = new THREE.MeshStandardMaterial({
     color: 0x6d5cff,
-    metalness: 0.18,
-    roughness: 0.5,
+    metalness: 0.15,
+    roughness: 0.55,
     emissive: 0x120a3a,
-    emissiveIntensity: 0.32,
+    emissiveIntensity: 0.30,
   });
 
-  const matB = new THREE.MeshStandardMaterial({
+  const matBlue = new THREE.MeshStandardMaterial({
     color: 0x3aa0ff,
-    metalness: 0.18,
-    roughness: 0.52,
+    metalness: 0.15,
+    roughness: 0.58,
     emissive: 0x061a33,
-    emissiveIntensity: 0.34,
+    emissiveIntensity: 0.30,
   });
 
   function ring(radius, tube, mat, rx, rz) {
-    const radialSegments = isMobile ? 14 : 18;
-    const tubularSegments = isMobile ? 72 : 100;
+    const radialSegments = isMobile ? 12 : 16;
+    const tubularSegments = isMobile ? 64 : 90;
     const geo = new THREE.TorusGeometry(radius, tube, radialSegments, tubularSegments);
     const mesh = new THREE.Mesh(geo, mat);
     mesh.rotation.x = rx;
@@ -60,12 +63,11 @@ if (!canvas) {
     return mesh;
   }
 
-  const r1 = ring(1.55, 0.085, matA, Math.PI * 0.45, 0);
-  const r2 = ring(1.15, 0.08, matB, Math.PI * 0.35, Math.PI * 0.2);
-  const r3 = ring(0.82, 0.075, matA, Math.PI * 0.55, -Math.PI * 0.18);
+  const r1 = ring(1.55, 0.085, matPurple, Math.PI * 0.45, 0);
+  const r2 = ring(1.15, 0.080, matBlue,   Math.PI * 0.35, Math.PI * 0.20);
+  const r3 = ring(0.82, 0.075, matPurple, Math.PI * 0.55, -Math.PI * 0.18);
   group.add(r1, r2, r3);
 
-  // Resize
   function resize() {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
@@ -76,29 +78,26 @@ if (!canvas) {
   new ResizeObserver(resize).observe(canvas);
   resize();
 
-  // ✅ حركة تلقائية فقط
   let raf = 0;
   let t = 0;
 
   function animate() {
     t += 0.01;
 
-    // دوران ناعم
-    r1.rotation.z += 0.0048;
-    r2.rotation.z -= 0.0062;
-    r3.rotation.z += 0.0075;
+    r1.rotation.z += 0.0045;
+    r2.rotation.z -= 0.0058;
+    r3.rotation.z += 0.0070;
 
-    // float بسيط جدًا
-    group.position.y = Math.sin(t * 0.9) * 0.06;
+    group.position.y = Math.sin(t * 0.9) * 0.055;
     group.rotation.y = Math.sin(t * 0.35) * 0.12;
     group.rotation.x = Math.cos(t * 0.28) * 0.08;
 
     renderer.render(scene, camera);
     raf = requestAnimationFrame(animate);
   }
+
   animate();
 
-  // وقف الأنيميشن إذا التبويب مخفي
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       cancelAnimationFrame(raf);
