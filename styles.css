@@ -61,23 +61,23 @@ body{
 .hero::after{
   display: none;
 }
-
-
-/* Content on top — CLEAN */
-.hero-content{
-  position: relative;
-  z-index: 2;
-  width: min(980px, 92vw);
-  text-align: center;
-  padding: 28px 18px;
-
-  /* إزالة الإطارات والمربعات */
-  border: none;
-  box-shadow: none;
-
-  /* خليها صافية */
-  background: transparent;
-  backdrop-filter: none;
+.hero{
+  background:
+    radial-gradient(
+      1200px 800px at 60% 45%,
+      rgba(0,255,225,.12),
+      rgba(0,0,0,0) 60%
+    ),
+    radial-gradient(
+      900px 600px at 40% 65%,
+      rgba(120,90,255,.12),
+      rgba(0,0,0,0) 65%
+    ),
+    linear-gradient(
+      to bottom,
+      #070A10,
+      #070A10
+    );
 }
 
 .hero-content h1{
