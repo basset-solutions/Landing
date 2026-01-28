@@ -6,7 +6,6 @@ if (!canvas) {
 } else {
   const isMobile = matchMedia("(max-width: 900px)").matches;
 
-  // ثابت وخفيف جدًا (أهم شيء للجوال)
   const renderer = new THREE.WebGLRenderer({
     canvas,
     alpha: true,
@@ -22,7 +21,7 @@ if (!canvas) {
 
   scene.add(new THREE.AmbientLight(0xffffff, 0.95));
 
-  const key = new THREE.DirectionalLight(0xffffff, 0.7);
+  const key = new THREE.DirectionalLight(0xffffff, 0.72);
   key.position.set(4, 5, 4);
   scene.add(key);
 
@@ -30,27 +29,29 @@ if (!canvas) {
   accent.position.set(-4, -2, 3);
   scene.add(accent);
 
-  const accent2 = new THREE.DirectionalLight(0x3aa0ff, 0.35);
+  const accent2 = new THREE.DirectionalLight(0x3aa0ff, 0.38);
   accent2.position.set(4, -1.5, 2);
   scene.add(accent2);
 
-  // ✅ شكل واحد فقط
+  // ✅ مادة تعطي لمعة جميلة بدون ما تثقل
   const mat = new THREE.MeshStandardMaterial({
     color: 0x3aa0ff,
-    metalness: 0.12,
-    roughness: 0.62,
+    metalness: 0.18,
+    roughness: 0.55,
     emissive: 0x061a33,
     emissiveIntensity: 0.25,
   });
 
-  const radialSegments = isMobile ? 12 : 16;
-  const tubularSegments = isMobile ? 64 : 90;
+  // ✅ عقدة (Knot) — خفيفة على الجوال
+  const tubularSegments = isMobile ? 110 : 170; // تفاصيل أقل للجوال
+  const radialSegments = isMobile ? 10 : 14;
 
-  const geo = new THREE.TorusGeometry(1.45, 0.10, radialSegments, tubularSegments);
-  const ring = new THREE.Mesh(geo, mat);
-  ring.rotation.x = Math.PI * 0.45;
-  ring.rotation.z = Math.PI * 0.15;
-  scene.add(ring);
+  // TorusKnotGeometry(radius, tube, tubularSegments, radialSegments, p, q)
+  const geo = new THREE.TorusKnotGeometry(1.15, 0.14, tubularSegments, radialSegments, 2, 3);
+  const knot = new THREE.Mesh(geo, mat);
+  knot.rotation.x = Math.PI * 0.35;
+  knot.rotation.z = Math.PI * 0.12;
+  scene.add(knot);
 
   function resize() {
     const w = canvas.clientWidth;
@@ -59,13 +60,13 @@ if (!canvas) {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
 
-    // مكانه داخل الهيرو فقط (فوق)، ما ينزل تحت
+    // مكانها فوق داخل الهيرو فقط
     if (isMobile) {
-      ring.position.set(0, -0.35, 0);
-      ring.scale.set(0.88, 0.88, 0.88);
+      knot.position.set(0, -0.35, 0);
+      knot.scale.set(0.92, 0.92, 0.92);
     } else {
-      ring.position.set(0, -0.10, 0);
-      ring.scale.set(1, 1, 1);
+      knot.position.set(0, -0.10, 0);
+      knot.scale.set(1, 1, 1);
     }
   }
   new ResizeObserver(resize).observe(canvas);
@@ -77,9 +78,13 @@ if (!canvas) {
   function animate() {
     t += 0.01;
 
-    ring.rotation.z += 0.006;
-    ring.rotation.y = Math.sin(t * 0.35) * 0.25;
-    ring.rotation.x = Math.PI * 0.45 + Math.cos(t * 0.25) * 0.08;
+    // حركة ناعمة (تلقائي فقط)
+    knot.rotation.y += 0.006;
+    knot.rotation.x = Math.PI * 0.35 + Math.cos(t * 0.25) * 0.09;
+    knot.rotation.z = Math.PI * 0.12 + Math.sin(t * 0.30) * 0.06;
+
+    // طفو بسيط جدًا
+    knot.position.y += Math.sin(t * 0.9) * 0.0008;
 
     renderer.render(scene, camera);
     raf = requestAnimationFrame(animate);
@@ -87,6 +92,7 @@ if (!canvas) {
 
   animate();
 
+  // إيقاف إذا التبويب مخفي (خفيف جدًا)
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       cancelAnimationFrame(raf);
