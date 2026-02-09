@@ -1,174 +1,341 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!doctype html>
+<html lang="ar" dir="rtl" class="no-js">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Basset Solutions 3D Hero</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بسّط | نبسّط العمل ونحوّل التعقيد إلى أنظمة ذكية</title>
+  <meta
+    name="description"
+    content="نساعد الشركات الصغيرة والمتوسطة في السعودية على تحسين عملياتها عبر التشخيص، إعادة تصميم العمليات، الأتمتة، والتقارير المبنية على البيانات."
+  />
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: system-ui, sans-serif;
-      background: #070A10;
-      color: #fff;
-    }
-
-    .hero {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    #three-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    .hero-text {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-    }
-
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      margin-bottom: 12px;
-      text-shadow: 0 10px 28px rgba(0,0,0,.6);
-    }
-    p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      margin-bottom: 24px;
-      opacity: .9;
-      text-shadow: 0 8px 26px rgba(0,0,0,.45);
-    }
-
-    .btn {
-      display: inline-block;
-      margin: 0 8px;
-      padding: 12px 24px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: .2s ease;
-    }
-    .btn-primary {
-      background: #00ffe1;
-      color: #00110d;
-    }
-    .btn-secondary {
-      border: 2px solid #fff;
-      color: #fff;
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      opacity: .92;
-    }
-  </style>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./script.js" defer></script>
 </head>
 
 <body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__inner">
+      <div class="brand">
+        <div class="brand__mark" aria-hidden="true">⬡</div>
+        <div class="brand__name">بسّط</div>
+      </div>
 
-  <div class="hero">
-    <!-- 3D Canvas -->
-    <canvas id="three-canvas"></canvas>
-
-    <!-- Text Content -->
-    <div class="hero-text">
-      <h1>نُبسّط التعقيد</h1>
-      <p>واجهة حديثة بحركة ثلاثية الأبعاد — بدون أداة Spline</p>
-      <a class="btn btn-primary" href="#contact">تواصل معنا</a>
-      <a class="btn btn-secondary" href="#services">خدماتنا</a>
+      <nav class="nav">
+        <a href="#why">لماذا بسّط</a>
+        <a href="#services">خدماتنا</a>
+        <a href="#how">كيف نعمل</a>
+        <a class="btn btn--ghost" href="#contact">تواصل معنا</a>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <!-- Three.js -->
-  <script type="module">
-    import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <!-- ✅ 3D: عقدة داخل الهيرو فقط -->
+      <canvas id="hero-3d" aria-hidden="true"></canvas>
 
-    const canvas = document.getElementById("three-canvas");
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+      <div class="container hero__inner">
+        <h1 class="hero__title">نبسّط التعقيد ونخلي الشغل أوضح</h1>
+        <p class="hero__subtitle">
+          فريق سعودي يقدّم حلول تقنية ذكية تقلّل الجهد وتزيد الكفاءة
+        </p>
 
-    const scene = new THREE.Scene();
+        <p class="hero__desc">
+          نساعد الشركات الصغيرة والمتوسطة في السعودية على تحسين عملياتها التشغيلية عبر
+          تشخيص مراحل العمل الحالية، أتمتتها بالأدوات المناسبة، وتقديم تقارير مبنية على البيانات
+          لرفع الكفاءة وخفض التكاليف وتحسين رضا العملاء والموظفين.
+        </p>
 
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0.3, 7);
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#contact">تواصل معنا</a>
+          <a class="btn btn--ghost" href="#services">استعرض الخدمات</a>
+        </div>
+      </div>
 
-    // Lights
-    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambient);
+      <!-- موجة خلفية متحركة -->
+      <div class="hero-wave" aria-hidden="true">
+        <svg viewBox="0 0 1200 260" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="waveGlow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#6d5cff" stop-opacity="0.0" />
+              <stop offset="0.25" stop-color="#6d5cff" stop-opacity="0.75" />
+              <stop offset="0.55" stop-color="#3aa0ff" stop-opacity="0.85" />
+              <stop offset="0.85" stop-color="#6d5cff" stop-opacity="0.75" />
+              <stop offset="1" stop-color="#6d5cff" stop-opacity="0.0" />
+            </linearGradient>
 
-    const key = new THREE.DirectionalLight(0xffffff, 0.85);
-    key.position.set(3, 4, 3);
-    scene.add(key);
+            <linearGradient id="waveLine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#ffffff" stop-opacity="0.0" />
+              <stop offset="0.35" stop-color="#e8f2ff" stop-opacity="0.95" />
+              <stop offset="0.6" stop-color="#ffffff" stop-opacity="0.95" />
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0.0" />
+            </linearGradient>
+          </defs>
 
-    const fill = new THREE.DirectionalLight(0x00ffe1, 0.38);
-    fill.position.set(-3, -1.5, 2.8);
-    scene.add(fill);
+          <g class="wave wave--back">
+            <path
+              d="M0,170 C120,120 240,220 360,170 C480,120 600,220 720,170 C840,120 960,220 1080,170 C1140,145 1170,140 1200,150"
+              fill="none"
+              stroke="url(#waveGlow)"
+              stroke-width="20"
+              stroke-linecap="round"
+            />
+          </g>
 
-    // Materials
-    const mat1 = new THREE.MeshStandardMaterial({
-      color: 0x00ffe1,
-      metalness: 0.3,
-      roughness: 0.35,
-      emissive: 0x00231a,
-      emissiveIntensity: 0.45
-    });
+          <g class="wave wave--front">
+            <path
+              d="M0,170 C120,120 240,220 360,170 C480,120 600,220 720,170 C840,120 960,220 1080,170 C1140,145 1170,140 1200,150"
+              fill="none"
+              stroke="url(#waveLine)"
+              stroke-width="6"
+              stroke-linecap="round"
+            />
+          </g>
+        </svg>
+      </div>
+    </section>
 
-    const mat2 = mat1.clone();
-    mat2.color = new THREE.Color(0x7a5aff);
+    <!-- Why -->
+    <section class="section reveal" id="why">
+      <div class="container">
+        <div class="section__head">
+          <div class="pill">لماذا نحن</div>
+          <h2 class="section__title">لماذا بسّط؟</h2>
+          <p class="section__desc">نؤمن أن التقنية يجب أن تخدم العمل، لا أن تُعقّده.</p>
+        </div>
 
-    const mat3 = mat1.clone();
-    mat3.color = new THREE.Color(0xff50b4);
+        <div class="grid grid--4">
+          <article class="card reveal">
+            <div class="icon">🚀</div>
+            <h3>نتائج من اليوم الأول</h3>
+            <p>تأثير فوري وملموس على سير العمل.</p>
+          </article>
 
-    // Group
-    const group = new THREE.Group();
-    scene.add(group);
+          <article class="card reveal">
+            <div class="icon">🧩</div>
+            <h3>أنظمة قابلة للتوسع</h3>
+            <p>تنمو مع نمو أعمالك بدون إعادة بناء.</p>
+          </article>
 
-    function makeTorus(radius, tube, mat, rx, ry) {
-      const geo = new THREE.TorusGeometry(radius, tube, 28, 120);
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.rotation.x = rx;
-      mesh.rotation.y = ry;
-      return mesh;
-    }
+          <article class="card reveal">
+            <div class="icon">⚙️</div>
+            <h3>حلول عملية</h3>
+            <p>لا نظريات… نطبق حلول فعّالة.</p>
+          </article>
 
-    const tor1 = makeTorus(1.5, 0.1, mat1, Math.PI * 0.45, 0);
-    const tor2 = makeTorus(1.2, 0.1, mat2, Math.PI * 0.38, Math.PI * 0.23);
-    const tor3 = makeTorus(0.9, 0.1, mat3, Math.PI * 0.52, -Math.PI * 0.18);
+          <article class="card reveal">
+            <div class="icon">🇸🇦</div>
+            <h3>فريق سعودي</h3>
+            <p>نفهم السوق المحلي واحتياجاته.</p>
+          </article>
+        </div>
 
-    group.add(tor1, tor2, tor3);
+        <div class="stats reveal">
+          <div class="stat">
+            <div class="stat__num">3x</div>
+            <div class="stat__label">زيادة الكفاءة</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">24/7</div>
+            <div class="stat__label">دعم فني</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">98%</div>
+            <div class="stat__label">رضا العملاء</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">+50</div>
+            <div class="stat__label">مشروع منجز</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    function animate() {
-      tor1.rotation.z += 0.009;
-      tor2.rotation.z -= 0.011;
-      tor3.rotation.z += 0.013;
+    <!-- Services -->
+    <section class="section section--alt reveal" id="services">
+      <div class="container">
+        <div class="section__head">
+          <div class="pill">خدماتنا</div>
+          <h2 class="section__title">حلول تقنية متكاملة</h2>
+          <p class="section__desc">
+            مجموعة خدمات مصممة لتبسيط أعمالك ورفع الأداء التشغيلي.
+          </p>
+        </div>
 
-      group.rotation.y += 0.0025;
-      group.rotation.x += 0.0018;
+        <div class="grid grid--3">
+          <article class="card card--big reveal">
+            <div class="icon">🔎</div>
+            <h3>تشخيص شامل (As-Is)</h3>
+            <p>نحلل مراحل العمل الحالية ونحدد نقاط التعطّل والهدر.</p>
+          </article>
 
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    }
-    animate();
+          <article class="card card--big reveal">
+            <div class="icon">🧠</div>
+            <h3>تصميم وإعادة هيكلة (To-Be)</h3>
+            <p>نصمم عمليات واضحة قابلة للقياس والتوسع.</p>
+          </article>
 
-    window.addEventListener("resize", () => {
-      const w = window.innerWidth, h = window.innerHeight;
-      renderer.setSize(w, h);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-    });
-  </script>
+          <article class="card card--big reveal">
+            <div class="icon">🔁</div>
+            <h3>تنفيذ الأتمتة</h3>
+            <p>Workflows و Integrations لتقليل الأخطاء وتوفير الوقت.</p>
+          </article>
 
+          <article class="card card--big reveal">
+            <div class="icon">📊</div>
+            <h3>تقارير دورية</h3>
+            <p>تقارير أسبوعية/شهرية حسب الطلب مبنية على KPIs.</p>
+          </article>
+
+          <article class="card card--big reveal">
+            <div class="icon">🧑‍💼</div>
+            <h3>رضا الموظفين</h3>
+            <p>استبيانات + تحليل دوري لرفع الرضا وتحسين الأداء.</p>
+          </article>
+
+          <article class="card card--big reveal">
+            <div class="icon">🛠️</div>
+            <h3>دعم وتشغيل أو تدريب</h3>
+            <p>دعم مستمر أو تدريب فرق العميل حسب الحاجة.</p>
+          </article>
+        </div>
+
+        <div class="benefits reveal">
+          <div class="benefits__head">
+            <h3 class="benefits__title">الفائدة التي تلاحظها بسرعة</h3>
+            <p class="benefits__desc">
+              تحسينات عملية ومباشرة على جودة العمل والإنتاجية.
+            </p>
+          </div>
+
+          <ul class="checklist">
+            <li>خفض الأخطاء اليدوية</li>
+            <li>تسريع دورة العمل</li>
+            <li>تحسين اتخاذ القرار بالبيانات</li>
+            <li>رفع رضا الموظفين</li>
+            <li>توفير وقت الإدارة على المهام الروتينية</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- How -->
+    <section class="section reveal" id="how">
+      <div class="container">
+        <div class="section__head">
+          <div class="pill">منهجية العمل</div>
+          <h2 class="section__title">كيف نعمل</h2>
+          <p class="section__desc">تقنية واضحة. سير عمل منظم. نمو بدون تعقيد.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="step reveal">
+            <div class="step__num">1</div>
+            <div class="step__body">
+              <h3>جلسة فهم ومواءمة</h3>
+              <p>نفهم أهدافك ونحدد نطاق العمل والمؤشرات المطلوبة.</p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="step__num">2</div>
+            <div class="step__body">
+              <h3>تشخيص As-Is</h3>
+              <p>نوثق العمليات الحالية ونكتشف نقاط التحسين.</p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="step__num">3</div>
+            <div class="step__body">
+              <h3>تصميم To-Be</h3>
+              <p>نضع نموذج تشغيل جديد مبسّط وواضح.</p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="step__num">4</div>
+            <div class="step__body">
+              <h3>أتمتة + تقارير</h3>
+              <p>ننفذ الأتمتة ونبني لوحة مؤشرات وتقارير دورية.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section--alt reveal" id="contact">
+      <div class="container">
+        <div class="section__head">
+          <div class="pill">تواصل معنا</div>
+          <h2 class="section__title">خلّنا نبسّط شغلك</h2>
+          <p class="section__desc">اكتب بياناتك، ونرد عليك خلال 24 ساعة.</p>
+        </div>
+
+        <div class="contact">
+          <div id="success-message" class="success hidden">
+            <div class="success__icon">✅</div>
+            <h3>تم إرسال رسالتك بنجاح</h3>
+            <p>شكراً لتواصلك معنا، بنرجع لك خلال 24 ساعة.</p>
+          </div>
+
+          <form
+            id="contact-form"
+            class="form"
+            action="https://formspree.io/f/xeeadzzw"
+            method="POST"
+          >
+            <label class="field">
+              <span class="field__label">الاسم</span>
+              <input class="field__input" type="text" name="name" placeholder="اسمك الكامل" required />
+            </label>
+
+            <label class="field">
+              <span class="field__label">البريد الإلكتروني</span>
+              <input class="field__input" type="email" name="email" placeholder="email@example.com" required />
+            </label>
+
+            <label class="field">
+              <span class="field__label">رسالتك</span>
+              <textarea class="field__input field__textarea" name="message" rows="5" placeholder="كيف نقدر نساعدك؟" required></textarea>
+            </label>
+
+            <button class="btn btn--primary btn--wide" type="submit">
+              أرسل <span aria-hidden="true">✈️</span>
+            </button>
+
+            <div class="contact__email">
+              <span>team@basset-sa.com</span>
+              <span aria-hidden="true">✉️</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <div class="brand__mark" aria-hidden="true">⬡</div>
+        <div class="footer__text">
+          <div>© 2026 بسّط. جميع الحقوق محفوظة.</div>
+          <div class="muted">صنع في السعودية ❤️</div>
+        </div>
+      </div>
+
+      <div class="footer__links">
+        <a href="#why">لماذا بسّط</a>
+        <a href="#services">خدماتنا</a>
+        <a href="#contact">تواصل معنا</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="./hero-3d.js"></script>
 </body>
 </html>
