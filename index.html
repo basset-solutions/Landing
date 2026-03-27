@@ -1,53 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Basset Solutions</title>
-
-  <!-- مهم: مسار نسبي -->
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <!-- Intro Loader -->
-  <div id="intro" aria-hidden="true">
-    <div class="intro-bar"></div>
-  </div>
 
-  <main class="hero" id="top">
-    <!-- Animated Background -->
-    <canvas id="bg" class="bg-canvas"></canvas>
-
-    <!-- Soft animated blobs -->
-    <div class="blob blob-1" aria-hidden="true"></div>
-    <div class="blob blob-2" aria-hidden="true"></div>
-    <div class="blob blob-3" aria-hidden="true"></div>
-
-    <!-- Content -->
-    <div class="hero-content">
-      <h1>نُبسّط التعقيد</h1>
-      <p>حلول رقمية ذكية بتجربة تفاعلية سلسة</p>
-
-      <div class="actions">
-        <a class="btn" href="#contact">تواصل معنا</a>
-        <a class="btn ghost" href="#services">خدماتنا</a>
-      </div>
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">Basset Solutions</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">الرئيسية</a></li>
+          <li><a href="#services">خدماتنا</a></li>
+          <li><a href="#about">من نحن</a></li>
+          <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+      </nav>
     </div>
-  </main>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="container">
+      <h2>نُبسّط التعقيد</h2>
+      <p>حلول رقمية ذكية بتجربة تفاعلية سلسة</p>
+      <a href="#services" class="btn">استكشف خدماتنا</a>
+    </div>
+  </section>
 
   <section id="services" class="section">
-    <h2>الخدمات</h2>
-    <p>اكتب محتواك هنا…</p>
+    <div class="container">
+      <h2>خدماتنا</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>تطوير المواقع</h3>
+          <p>تصميم وتطوير مواقع حديثة وسريعة ومتجاوبة.</p>
+        </div>
+        <div class="card">
+          <h3>تطوير الأنظمة</h3>
+          <p>بناء أنظمة مخصصة لإدارة أعمالك بكفاءة.</p>
+        </div>
+        <div class="card">
+          <h3>التحول الرقمي</h3>
+          <p>نساعدك على نقل أعمالك إلى البيئة الرقمية بثقة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section alt">
+    <div class="container">
+      <h2>من نحن</h2>
+      <p>
+        نحن فريق متخصص في تقديم حلول تقنية مبتكرة تساعد الشركات
+        على النمو وتحقيق أهدافها بكفاءة واحترافية.
+      </p>
+    </div>
   </section>
 
   <section id="contact" class="section">
-    <h2>تواصل</h2>
-    <p>اكتب بيانات التواصل هنا…</p>
+    <div class="container">
+      <h2>تواصل معنا</h2>
+      <p>راسلنا الآن لبدء مشروعك القادم.</p>
+      <a href="mailto:info@bassetsolutions.com" class="btn">إرسال رسالة</a>
+    </div>
   </section>
 
-  <!-- مهم: مسار نسبي + defer -->
-  <script src="./main.js" defer></script>
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Basset Solutions. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
-  
