@@ -1,112 +1,105 @@
-// script.js
-
-// شيل no-js أول ما يشتغل الجافاسكربت
-document.documentElement.classList.remove("no-js");
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  link.addEventListener("click", (e) => {
-    const id = link.getAttribute("href");
-    if (!id || id === "#") return;
-
-    const target = document.querySelector(id);
-    if (!target) return;
-
-    e.preventDefault();
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+// Intro loader hide
+window.addEventListener("load", () => {
+  const intro = document.getElementById("intro");
+  setTimeout(() => {
+    intro.style.opacity = "0";
+    intro.style.transition = "opacity .35s ease";
+    setTimeout(() => intro.remove(), 380);
+  }, 1100);
 });
 
-// Contact form submit (Formspree) + success message
-const form = document.getElementById("contact-form");
-const successMessage = document.getElementById("success-message");
+// Canvas particles background
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d", { alpha: true });
 
-if (form) {
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+let w = 0, h = 0;
+let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+let particles = [];
+let rafId = null;
 
-    const data = new FormData(form);
-
-    try {
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-
-      if (response.ok) {
-        form.reset();
-        form.classList.add("hidden");
-        if (successMessage) successMessage.classList.remove("hidden");
-      } else {
-        alert("صار خطأ أثناء الإرسال، جرّبي مرة ثانية 🙏");
-      }
-    } catch (error) {
-      alert("تعذر الاتصال، تأكدي من الإنترنت 🌐");
-    }
-  });
+function makeParticle() {
+  const speed = 0.15 + Math.random() * 0.45;
+  return {
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: 0.8 + Math.random() * 2.2,
+    vx: (Math.random() - 0.5) * speed,
+    vy: (Math.random() - 0.5) * speed,
+    a: 0.25 + Math.random() * 0.45
+  };
 }
 
-// Reveal on scroll
-(function revealOnScroll() {
-  const reveals = document.querySelectorAll(".reveal");
-  if (!reveals.length) return;
+function resize() {
+  w = canvas.clientWidth;
+  h = canvas.clientHeight;
 
-  // إذا المتصفح ما يدعم IntersectionObserver: اظهر كل العناصر مباشرة
-  if (!("IntersectionObserver" in window)) {
-    reveals.forEach((el) => el.classList.add("is-visible"));
-    return;
+  canvas.width = Math.floor(w * dpr);
+  canvas.height = Math.floor(h * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const count = Math.floor((w * h) / 18000);
+  const n = Math.max(35, Math.min(140, count));
+  particles = Array.from({ length: n }, makeParticle);
+}
+
+function step() {
+  ctx.clearRect(0, 0, w, h);
+
+  // subtle radial glow
+  const g = ctx.createRadialGradient(w * 0.5, h * 0.35, 40, w * 0.5, h * 0.5, Math.max(w, h));
+  g.addColorStop(0, "rgba(0,255,225,0.06)");
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, w, h);
+
+  // particles
+  for (const p of particles) {
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < -10) p.x = w + 10;
+    if (p.x > w + 10) p.x = -10;
+    if (p.y < -10) p.y = h + 10;
+    if (p.y > h + 10) p.y = -10;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+    ctx.fill();
   }
 
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  reveals.forEach((el) => observer.observe(el));
-})();
-// Theme toggle (Dark/Light) + حفظ الاختيار
-(function themeToggle() {
-  const root = document.documentElement;
-  const btn = document.getElementById("theme-toggle");
-  if (!btn) return;
-
-  const icon = btn.querySelector(".theme-toggle__icon");
-  const text = btn.querySelector(".theme-toggle__text");
-
-  // 1) اعرف الثيم الابتدائي: localStorage > إعداد الجهاز > دارك
-  const saved = localStorage.getItem("theme");
-  const systemPrefersLight =
-    window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-
-  const initialTheme = saved || (systemPrefersLight ? "light" : "dark");
-  applyTheme(initialTheme);
-
-  // 2) تبديل عند الضغط
-  btn.addEventListener("click", () => {
-    const current = root.getAttribute("data-theme") || "dark";
-    const next = current === "dark" ? "light" : "dark";
-    applyTheme(next);
-    localStorage.setItem("theme", next);
-  });
-
-  function applyTheme(theme) {
-    root.setAttribute("data-theme", theme);
-
-    // تحديث نص/أيقونة الزر
-    if (theme === "light") {
-      if (icon) icon.textContent = "☀️";
-      if (text) text.textContent = "فاتح";
-    } else {
-      if (icon) icon.textContent = "🌙";
-      if (text) text.textContent = "داكن";
+  // connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const a = particles[i], b = particles[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        const alpha = (1 - dist / 120) * 0.18;
+        ctx.strokeStyle = `rgba(0,255,225,${alpha})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
     }
   }
-})();
+
+  rafId = requestAnimationFrame(step);
+}
+
+const ro = new ResizeObserver(resize);
+ro.observe(canvas);
+
+resize();
+step();
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+  } else if (!rafId) {
+    step();
+  }
+});
